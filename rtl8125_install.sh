@@ -60,8 +60,13 @@ fi
 # Add no subcript source 【添加非订阅用户源】
 # NOT recommended for production use 【不建议生产环境中使用】
 # PVE pve-no-subscription repository provided by proxmox.com 【非订阅用户软件仓库由proxmox.com提供】
+# 
 
-if [ "$PVE_Main_version" == 6 ]; then
+if [ "$PVE_Main_version" == 7 ]; then
+	# add PVE 7.0 no subcript to apt source.list
+	echo 'deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription' > /etc/apt/sources.list.d/pve-no-subscription.list
+	echo 'adding no subcript source to /etc/apt/sources.list.d/pve-no-subscription.list.....'
+elif [ "$PVE_Main_version" == 6 ]; then
 	# add PVE 6.0 no subcript to apt source.list
 	echo 'deb http://download.proxmox.com/debian/pve buster pve-no-subscription' > /etc/apt/sources.list.d/pve-no-subscription.list
 	echo 'adding no subcript source to /etc/apt/sources.list.d/pve-no-subscription.list.....'
@@ -87,8 +92,8 @@ apt-get install ${kernel_headers_latest_version} ${kernel_image_latest_version}
 apt-get -y install dkms build-essential make gcc libelf-dev
 
 
-tar vjxf $PWD/r8125-9.003.05.tar.bz2
-cd r8125-9.003.05
+tar vjxf $PWD/r8125-9.011.00.tar.bz2
+cd r8125-9.011.00
 
 chmod a+x autorun.sh
 ./autorun.sh
